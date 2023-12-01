@@ -36,15 +36,23 @@ public class FirstTest
     [TestMethod]
     public void CheckSolve()
     {
-        var solution = First.Solve(simple);
+        var solution = First.SolveFirstChallenge(simple);
         Assert.AreEqual(142, solution);
     }
 
     [TestMethod]
     public void Solve()
     {
-        var solution = First.Solve(First.Input);
+        var solution = First.SolveFirstChallenge(First.Input);
         Debug.Write($"Solution = {solution}");
+    }
+
+
+    [TestMethod]
+    public void Sparring() {
+        Assert.AreEqual(2, First.GetFirstNumber("two934seven1", false));
+        Assert.AreEqual(21, First.SolveLineWithStrings("two934seven1"));
+        Assert.AreEqual(88, First.SolveLineWithStrings("8fmmthreeeight6fiveight"));
     }
 
     private readonly string simple = @"

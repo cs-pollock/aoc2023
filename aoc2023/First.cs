@@ -1,31 +1,82 @@
 public class First {
 
-    public static int Solve(string input) {
-
+    public static int SolveFirstChallenge(string input) {
         string[] lines = SplitByLines(input);
-
         return lines.Aggregate(0, (acc, current) => acc + GetLineNumber(current));
     }
 
-    public static int GetLineNumber(string line) {
-            return combineNumbers(
-                GetFirstNumber(line),
-                getLastNumber(line)
-            );
+    public static int SolveSecondChallenge(string input) {
+        string[] lines = SplitByLines(input);
+        return lines.Aggregate(0, (acc, current) => acc + SolveLineWithStrings(current));
+    }
 
-        int combineNumbers(int a, int b) {
-            return int.Parse($"{a}{b}");
-        }
+    // private static string[] ValidTextNumbers = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+
+    private static readonly Dictionary<string, int> textToNumber = new()
+    {
+        { "one", 1 },
+        { "two", 2 },
+        { "three", 3 },
+        { "four", 4 },
+        { "five", 5 },
+        { "six", 6 },
+        { "seven", 7 },
+        { "eight", 8 },
+        { "nine", 9 },
+    };
+
+    public static int GetLineNumber(string line) {
+        return CombineNumbers(
+            GetFirstNumber(line),
+            getLastNumber(line)
+        );
+
 
         int getLastNumber(string lineInput) {
-            return GetFirstNumber(reverseString(lineInput));
-
-            string reverseString(string input) {
-                char[] charArray = input.ToCharArray();
-                Array.Reverse(charArray);
-                return new string(charArray);
-            }
+            return GetFirstNumber(ReverseString(lineInput));
         }
+    }
+
+    private static int CombineNumbers(int a, int b) {
+        return int.Parse($"{a}{b}");
+    }
+
+
+    public static int SolveLineWithStrings(string line) {
+        var lineResult = CombineNumbers(
+            GetFirstNumber(line, false),
+            GetFirstNumber(ReverseString(line), true)
+        );
+        return lineResult;
+    }
+
+    public static int GetFirstNumber(string lineInput, bool isReversed) {
+        List<(int index, int value)> pairs = new();
+
+        for (int i = 1; i <= 9; i++) {
+            var index = lineInput.IndexOf(i.ToString());
+            if (index == -1) {
+                continue;
+            }
+            pairs.Add((index, i));
+        }
+
+        foreach(string valid in textToNumber.Keys) {
+            var validProcessed = isReversed ? ReverseString(valid) : valid;
+            var index = lineInput.IndexOf(validProcessed);
+            if (index == -1) {
+                continue;
+            }
+            pairs.Add((index, textToNumber[valid]));
+        }
+
+        return pairs.OrderBy(a => a.index).First().value;
+    }
+
+    private static string ReverseString(string input) {
+        char[] charArray = input.ToCharArray();
+        Array.Reverse(charArray);
+        return new string(charArray);
     }
 
     public static int GetFirstNumber(string lineInput) {
@@ -37,7 +88,6 @@ public class First {
 
         throw new Exception($"No number found in line \"{lineInput}\"");
     }
-
 
     public static string[] SplitByLines(string input) {
         var splitted = input.Split(
