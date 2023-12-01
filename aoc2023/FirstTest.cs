@@ -8,7 +8,7 @@ public class FirstTest
     [TestMethod]
     public void SplitByLines()
     {
-        string[] splitted = First.SplitByLines(First.Input);
+        string[] splitted = First.SplitByLines(First.FirstInput);
         Assert.AreEqual("two934seven1", splitted[0]);
     }
 
@@ -41,12 +41,18 @@ public class FirstTest
     }
 
     [TestMethod]
-    public void Solve()
+    public void SolveFirst()
     {
-        var solution = First.SolveFirstChallenge(First.Input);
-        Debug.Write($"Solution = {solution}");
+        var solution = First.SolveFirstChallenge(First.FirstInput);
+        Debug.Write($"Solution 1 = {solution}");
     }
 
+    [TestMethod]
+    public void SolveSecond()
+    {
+        var solution = First.SolveSecondChallenge(First.SecondInput);
+        Debug.Write($"Solution 2 = {solution}");
+    }
 
     [TestMethod]
     public void Sparring() {
