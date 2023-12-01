@@ -45,12 +45,13 @@ public class First {
     public static int SolveLineWithStrings(string line) {
         var lineResult = CombineNumbers(
             GetFirstNumber(line, false),
-            GetFirstNumber(ReverseString(line), true)
+            GetFirstNumber(line, true)
         );
         return lineResult;
     }
 
-    public static int GetFirstNumber(string lineInput, bool isReversed) {
+    public static int GetFirstNumber(string lineInput, bool startFromEnd) {
+        lineInput = startFromEnd ? ReverseString(lineInput) : lineInput;
         List<(int index, int value)> pairs = new();
 
         for (int i = 1; i <= 9; i++) {
@@ -62,7 +63,7 @@ public class First {
         }
 
         foreach(string valid in textToNumber.Keys) {
-            var validProcessed = isReversed ? ReverseString(valid) : valid;
+            var validProcessed = startFromEnd ? ReverseString(valid) : valid;
             var index = lineInput.IndexOf(validProcessed);
             if (index == -1) {
                 continue;
