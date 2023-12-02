@@ -1,6 +1,26 @@
+using aoc2023.UtilsNS;
+
 namespace aoc2023.Second;
 public class Second
 {
+    public const int RedLimit = 12;
+    public const int GreenLimit = 13;
+    public const int BlueLimit = 14;
+
+    public static bool IsGameWithinLimit(ColorSet[] sets) {
+        return !sets.Any(set =>
+            set.Blue > BlueLimit
+            || set.Green > GreenLimit
+            || set.Red > RedLimit
+        );
+    }
+
+    public static int Resolve(string input) {
+        string[] inputLines = Utils.SplitByLines(input);
+        var gameResults = inputLines.Select(StringToGameResult);
+        return gameResults.Aggregate(0, (agg, current) => IsGameWithinLimit(current.Sets) ? agg + current.Id : agg);
+    }
+
     public static GameResult StringToGameResult(string input) {
         var splitted = input.Split(':');
         
