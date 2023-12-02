@@ -1,13 +1,15 @@
+using aoc2023.Utils;
+
 namespace aoc2023.First;
 public class First {
 
     public static int SolveFirstChallenge(string input) {
-        string[] lines = SplitByLines(input);
+        string[] lines = StringUtils.SplitByLines(input);
         return lines.Aggregate(0, (acc, current) => acc + GetLineNumber(current));
     }
 
     public static int SolveSecondChallenge(string input) {
-        string[] lines = SplitByLines(input);
+        string[] lines = StringUtils.SplitByLines(input);
         return lines.Aggregate(0, (acc, current) => acc + SolveLineWithStrings(current));
     }
 
@@ -89,16 +91,6 @@ public class First {
         }
 
         throw new Exception($"No number found in line \"{lineInput}\"");
-    }
-
-    public static string[] SplitByLines(string input) {
-        var splitted = input.Split(
-            new string[] { Environment.NewLine },
-            StringSplitOptions.None
-        );
-
-        var clean = splitted.Select(a => a.Trim()).Where(a => !string.IsNullOrEmpty(a)).ToArray();
-        return clean;
     }
 
     public static string SecondInput =@"

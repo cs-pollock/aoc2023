@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using aoc2023.Utils;
 
 namespace aoc2023.First;
 
@@ -8,14 +9,14 @@ public class FirstTest
     [TestMethod]
     public void SplitByLines()
     {
-        string[] splitted = First.SplitByLines(First.FirstInput);
+        string[] splitted = StringUtils.SplitByLines(First.FirstInput);
         Assert.AreEqual("two934seven1", splitted[0]);
     }
 
     [TestMethod]
     public void SplitByLines2()
     {
-        string[] splitted = First.SplitByLines(simple);
+        string[] splitted = StringUtils.SplitByLines(simple);
         Assert.AreEqual(4, splitted.Length);
     }
 
