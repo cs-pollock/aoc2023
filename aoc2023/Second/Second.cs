@@ -15,10 +15,42 @@ public class Second
         );
     }
 
-    public static int Resolve(string input) {
+    public static ColorSet GetMinimumInSets(ColorSet[] sets) {
+        int red = 0;
+        int green = 0;
+        int blue = 0;
+
+        foreach(ColorSet set in sets) {
+            if (set.Red > red) {
+                red = set.Red;
+            }
+
+            if (set.Green > green) {
+                green = set.Green;
+            }
+
+            if (set.Blue > blue) {
+                blue = set.Blue;
+            }
+        }
+
+        return new (red, green, blue);
+    }
+
+    public static int GetPower(ColorSet colorSet) {
+        return colorSet.Green * colorSet.Blue * colorSet.Red;
+    }
+
+    public static int Resolve_1(string input) {
         string[] inputLines = Utils.SplitByLines(input);
         var gameResults = inputLines.Select(StringToGameResult);
-        return gameResults.Aggregate(0, (agg, current) => IsGameWithinLimit(current.Sets) ? agg + current.Id : agg);
+        return gameResults.Aggregate(0, (agg, game) => IsGameWithinLimit(game.Sets) ? agg + game.Id : agg);
+    }
+
+    public static int Resolve_2(string input) {
+        string[] inputLines = Utils.SplitByLines(input);
+        var gameResults = inputLines.Select(StringToGameResult);
+        return gameResults.Aggregate(0, (agg, game) => agg + GetPower(GetMinimumInSets(game.Sets)));
     }
 
     public static GameResult StringToGameResult(string input) {

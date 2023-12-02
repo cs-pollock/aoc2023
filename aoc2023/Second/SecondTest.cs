@@ -46,10 +46,28 @@ public class SecondTest
     }
 
     [TestMethod]
-    public void TestKnownResult() {
-        Assert.AreEqual(8, Second.Resolve(Second.SimpleInput));
+    public void TestKnownResult_1() {
+        Assert.AreEqual(8, Second.Resolve_1(Second.SimpleInput));
 
-        Debug.WriteLine("Result = " + Second.Resolve(FullInput));
+        Debug.WriteLine("Result 1 = " + Second.Resolve_1(FullInput));
+    }
+
+    [TestMethod]
+    public void TestMimimumCubes() {
+        Assert.AreEqual(new ColorSet(Red: 4, Green: 2, Blue: 6), Second.GetMinimumInSets(
+            new ColorSet[] {
+                new(Red: 4, Green: 0, Blue: 3),
+                new(Red: 1, Green: 2, Blue: 6),
+                new(Red: 0, Green: 2, Blue: 0)
+            }
+        ));
+    }
+
+    [TestMethod]
+    public void TestKnownResult_2() {
+        Assert.AreEqual(2286, Second.Resolve_2(Second.SimpleInput));
+
+        Debug.WriteLine("Result 2 = " + Second.Resolve_2(FullInput));
     }
 
     private static readonly string FullInput = @"
