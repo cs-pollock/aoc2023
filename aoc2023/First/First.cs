@@ -1,15 +1,15 @@
-using aoc2023.Utils;
+using aoc2023.UtilsNS;
 
 namespace aoc2023.First;
 public class First {
 
     public static int SolveFirstChallenge(string input) {
-        string[] lines = StringUtils.SplitByLines(input);
+        string[] lines = Utils.SplitByLines(input);
         return lines.Aggregate(0, (acc, current) => acc + GetLineNumber(current));
     }
 
     public static int SolveSecondChallenge(string input) {
-        string[] lines = StringUtils.SplitByLines(input);
+        string[] lines = Utils.SplitByLines(input);
         return lines.Aggregate(0, (acc, current) => acc + SolveLineWithStrings(current));
     }
 

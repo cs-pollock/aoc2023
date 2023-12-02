@@ -1,5 +1,5 @@
-namespace aoc2023.Utils;
-public class StringUtils
+namespace aoc2023.UtilsNS;
+public class Utils
 {
     public static string[] SplitByLines(string input)
     {
