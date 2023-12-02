@@ -1,3 +1,4 @@
+namespace aoc2023.First;
 public class First {
 
     public static int SolveFirstChallenge(string input) {

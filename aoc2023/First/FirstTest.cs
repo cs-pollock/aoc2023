@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace aoc2023;
+namespace aoc2023.First;
 
 [TestClass]
 public class FirstTest
