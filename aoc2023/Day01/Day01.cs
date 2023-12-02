@@ -1,7 +1,7 @@
 using aoc2023.UtilsNS;
 
-namespace aoc2023.First;
-public class First {
+namespace aoc2023.Day01NS;
+public class Day01 {
 
     public static int SolveFirstChallenge(string input) {
         string[] lines = Utils.SplitByLines(input);

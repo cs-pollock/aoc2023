@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace aoc2023.Second;
+namespace aoc2023.Day02NS;
 
 [TestClass]
 public class SecondTest
@@ -8,7 +8,7 @@ public class SecondTest
     [TestMethod]
     public void TestLineParser() {
         var line = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green";
-        var gameResult = Second.StringToGameResult(line);
+        var gameResult = Day02.StringToGameResult(line);
         Assert.AreEqual(3, gameResult.Sets.Length);
         Assert.AreEqual(gameResult.Sets[0], new ColorSet(Red: 4, Green: 0, Blue: 3));
         Assert.AreEqual(gameResult.Sets[2], new ColorSet(Red: 0, Green: 2, Blue: 0));
@@ -16,28 +16,28 @@ public class SecondTest
 
     [TestMethod]
     public void TestLimitChecker() {
-        Assert.AreEqual(true, Second.IsGameWithinLimit(
+        Assert.AreEqual(true, Day02.IsGameWithinLimit(
             new ColorSet[] {
                 new(Red: 12, Green: 13, Blue: 14),
                 new(Red: 0, Green: 0, Blue: 0)
             }
         ));
 
-        Assert.AreEqual(false, Second.IsGameWithinLimit(
+        Assert.AreEqual(false, Day02.IsGameWithinLimit(
             new ColorSet[] {
                 new(Red: 13, Green: 13, Blue: 14),
                 new(Red: 12, Green: 13, Blue: 14)
             }
         ));
 
-        Assert.AreEqual(false, Second.IsGameWithinLimit(
+        Assert.AreEqual(false, Day02.IsGameWithinLimit(
             new ColorSet[] {
                 new(Red: 12, Green: 14, Blue: 14),
                 new(Red: 12, Green: 13, Blue: 14)
             }
         ));
 
-        Assert.AreEqual(false, Second.IsGameWithinLimit(
+        Assert.AreEqual(false, Day02.IsGameWithinLimit(
             new ColorSet[] {
                 new(Red: 12, Green: 13, Blue: 15),
                 new(Red: 12, Green: 13, Blue: 14)
@@ -47,14 +47,14 @@ public class SecondTest
 
     [TestMethod]
     public void TestKnownResult_1() {
-        Assert.AreEqual(8, Second.Resolve_1(Second.SimpleInput));
+        Assert.AreEqual(8, Day02.Resolve_1(Day02.SimpleInput));
 
-        Debug.WriteLine("Result 1 = " + Second.Resolve_1(FullInput));
+        Debug.WriteLine("Result 1 = " + Day02.Resolve_1(FullInput));
     }
 
     [TestMethod]
     public void TestMimimumCubes() {
-        Assert.AreEqual(new ColorSet(Red: 4, Green: 2, Blue: 6), Second.GetMinimumInSets(
+        Assert.AreEqual(new ColorSet(Red: 4, Green: 2, Blue: 6), Day02.GetMinimumInSets(
             new ColorSet[] {
                 new(Red: 4, Green: 0, Blue: 3),
                 new(Red: 1, Green: 2, Blue: 6),
@@ -65,9 +65,9 @@ public class SecondTest
 
     [TestMethod]
     public void TestKnownResult_2() {
-        Assert.AreEqual(2286, Second.Resolve_2(Second.SimpleInput));
+        Assert.AreEqual(2286, Day02.Resolve_2(Day02.SimpleInput));
 
-        Debug.WriteLine("Result 2 = " + Second.Resolve_2(FullInput));
+        Debug.WriteLine("Result 2 = " + Day02.Resolve_2(FullInput));
     }
 
     private static readonly string FullInput = @"

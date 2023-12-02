@@ -1,7 +1,7 @@
 using aoc2023.UtilsNS;
 
-namespace aoc2023.Second;
-public class Second
+namespace aoc2023.Day02NS;
+public class Day02
 {
     public const int RedLimit = 12;
     public const int GreenLimit = 13;
