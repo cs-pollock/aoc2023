@@ -6,15 +6,6 @@ public class Day03
     private const int NumberForSymbol = -1;
     private const int NumberForGear = -2;
 
-    public static int Solve_1(string input) {
-        var matrix = ConvertInputToMatrix(input);
-        var numbersWithPositions = GetNumberWithPositions(input);
-        
-        return numbersWithPositions.Aggregate(0, (agg, current) => 
-            IsNumberValid(matrix, current) ? agg + current.Number : agg
-        );
-    }
-
     public static int Solve_2(string input) {
         return GetGears(input).Aggregate(0, (acc, current) => acc + GetGearRatio(current));
     }
@@ -64,11 +55,33 @@ public class Day03
         }
     }
 
+
+    public static int Solve_1(string input) {
+        var matrix = ConvertInputToMatrix(input);
+        var numbersWithPositions = GetNumberWithPositions(input);
+        
+        return numbersWithPositions.Aggregate(0, (agg, current) => 
+            IsNumberValid(matrix, current) ? agg + current.Number : agg
+        );
+    }
+
     public static bool IsNumberValid(int?[,] matrix, NumberWithPositions number) {
         foreach (int x in number.Positions) {
             if (IsPositionValid(matrix, number.LineNumber, x)) {
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    public static bool IsPositionValid(int?[,] matrix, int y, int x) {
+        foreach (Coordinate coord in MakeCoordinatesToCheck(new Coordinate(y, x))) {
+            try {
+                if (matrix[coord.Y, coord.X] == NumberForSymbol || matrix[coord.Y, coord.X] == NumberForGear) {
+                    return true;
+                }
+            } catch {}
         }
 
         return false;
@@ -92,30 +105,6 @@ public class Day03
         };
 
         return coordinatesToCheck;
-    }
-
-    public static bool IsPositionValid(int?[,] matrix, int y, int x) {
-        foreach (Coordinate coord in MakeCoordinatesToCheck(new Coordinate(y, x))) {
-            try {
-                if (matrix[coord.Y, coord.X] == NumberForSymbol || matrix[coord.Y, coord.X] == NumberForGear) {
-                    return true;
-                }
-            } catch {}
-        }
-
-        return false;
-    }
-
-    public static bool IsPositionNextToGear(int?[,] matrix, int y, int x) {
-        foreach (Coordinate coord in MakeCoordinatesToCheck(new Coordinate(y, x))) {
-            try {
-                if (matrix[coord.Y, coord.X] == NumberForGear) {
-                    return true;
-                }
-            } catch {}
-        }
-
-        return false;
     }
 
     public static int?[,] ConvertInputToMatrix(string input) {
