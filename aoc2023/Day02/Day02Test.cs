@@ -3,7 +3,7 @@ using System.Diagnostics;
 namespace aoc2023.Day02NS;
 
 [TestClass]
-public class SecondTest
+public class Day02Test
 {
     [TestMethod]
     public void TestLineParser() {
