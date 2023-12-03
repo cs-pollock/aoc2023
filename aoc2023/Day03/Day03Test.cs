@@ -8,6 +8,18 @@ namespace aoc2023.Day03NS;
 public class Day03Test
 {
     [TestMethod]
+    public void TestGearFinder() {
+        var found = Day03.GetGears(Day03Data.SimpleInput02);
+        found.Count.Should().Be(2);
+    }
+
+    [TestMethod]
+    public void Solve_3_2_example() {
+        Day03.Solve_2(Day03Data.SimpleInput).Should().Be(467835);
+        Day03.Solve_2(Day03Data.FullInput).Should().Be(82301120);
+    }
+
+    [TestMethod]
     public void TestMatrixConverter() 
     {
         var matrix = Day03.ConvertInputToMatrix(Day03Data.SimpleInput02);
@@ -98,13 +110,13 @@ public class Day03Test
 
     [TestMethod]
     public void SolveExample() {
-        Assert.AreEqual(4362, Day03.Solve(Day03Data.SimpleInput02));
+        Assert.AreEqual(4362, Day03.Solve_1(Day03Data.SimpleInput02));
 
-        Debug.WriteLine("Solution 1 = " + Day03.Solve(Day03Data.FullInput));
+        Debug.WriteLine("Solution 1 = " + Day03.Solve_1(Day03Data.FullInput));
     }
 
     [TestMethod]
     public void SolveExampleSparring() {
-        Assert.AreEqual(3467, Day03.Solve(Day03Data.FullInputPartial_A));
+        Assert.AreEqual(3467, Day03.Solve_1(Day03Data.FullInputPartial_A));
     }
 }
