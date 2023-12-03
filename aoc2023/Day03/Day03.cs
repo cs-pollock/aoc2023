@@ -4,7 +4,8 @@ using aoc2023.UtilsNS;
 namespace aoc2023.Day03NS;
 public class Day03
 {
-    private const int NumberForSymbol = -1; 
+    private const int NumberForSymbol = -1;
+    private const int NumberForGear = -2;
 
     public static int Solve(string input) {
         var matrix = ConvertInputToMatrix(input);
@@ -36,7 +37,7 @@ public class Day03
         foreach (int yPos in yPositions) {
             foreach (int xPos in xPositions) {
                 try {
-                    if (matrix[yPos, xPos] == NumberForSymbol) {
+                    if (matrix[yPos, xPos] == NumberForSymbol || matrix[yPos, xPos] == NumberForGear) {
                         return true;
                     }
                 } catch {}
@@ -60,7 +61,9 @@ public class Day03
                     ? (int) char.GetNumericValue(entry)
                     : entry == '.'
                         ? null
-                        : NumberForSymbol;
+                        :  entry == '*'
+                            ? NumberForGear
+                            : NumberForSymbol;
             }
         }
 

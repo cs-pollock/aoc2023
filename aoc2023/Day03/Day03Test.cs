@@ -16,6 +16,7 @@ public class Day03Test
         matrix.GetLength(1).Should().Be(11);
         matrix[3, 10].Should().Be(-1);
         matrix[4, 10].Should().Be(1);
+        matrix[1, 3].Should().Be(-2);
     }
 
     [TestMethod]
