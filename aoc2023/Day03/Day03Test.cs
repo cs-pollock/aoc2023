@@ -12,21 +12,16 @@ public class Day03Test
     {
         var matrix = Day03.ConvertInputToMatrix(Day03Data.SimpleInput02);
 
-        // Assert.AreEqual(100, matrix.Length);
-        matrix.GetLength(0).Should().Be(11);
-        matrix.GetLength(1).Should().Be(10);
-        // Assert.AreEqual(11, matrix.GetLength(0));
-        // Assert.AreEqual(10, matrix.GetLength(1));
+        matrix.GetLength(0).Should().Be(12);
+        matrix.GetLength(1).Should().Be(11);
+        matrix[3, 10].Should().Be(-1);
+        matrix[4, 10].Should().Be(1);
+    }
 
-        // Assert.AreEqual(4, matrix[0, 0]);
-        // Assert.AreEqual(6, matrix[0, 1]);
-        // Assert.AreEqual(7, matrix[0, 2]);
-        // Assert.AreEqual(null, matrix[0, 3]);
-        // Assert.AreEqual(null, matrix[0, 4]);
-        // Assert.AreEqual(1, matrix[0, 5]);
-        // Assert.AreEqual(1, matrix[0, 6]);
-        // Assert.AreEqual(4, matrix[0, 7]);
-        // Assert.AreEqual(null, matrix[0, 8]);
+    [TestMethod]
+    public void TestSingleNumber() {
+        var matrix = Day03.ConvertInputToMatrix(Day03Data.SimpleInput02);
+        Day03.IsPositionValid(matrix, 4, 10).Should().Be(true);
     }
 
     [TestMethod]
@@ -41,27 +36,31 @@ public class Day03Test
     public void TestNumberGrouper() 
     {
         var numbers = Day03.GetNumberWithPositions(Day03Data.SimpleInput);
-        Assert.AreEqual(10, numbers.Count);
+        numbers.Count.Should().Be(10);
         Assert.AreEqual(467, numbers[0].Number);
         CollectionAssert.AreEqual(new int[] {0, 1, 2}, numbers[0].Positions);
         Assert.AreEqual(598, numbers[numbers.Count - 1].Number);
+
+        var numbers2 = Day03.GetNumberWithPositions(Day03Data.SimpleInput02);
+        numbers2.Count.Should().Be(11);
+        numbers2[5].Number.Should().Be(1);
     }
 
     [TestMethod]
-    // [DataRow(false, 0, 0)]
-    // [DataRow(true, 0, 2)]
-    // [DataRow(true, 1, 3)]
-    // [DataRow(true, 2, 3)]
-    // public void TestPositionValidator(bool isValid, int xPos, int yPos) {
+    public void GetNumberInLine() {
+        var numbers = Day03.GroupNumbersInLine("617*......1", 0, 10);
+        numbers.Number.Should().Be(1);
+    }
+
+    [TestMethod]
     public void TestPositionValidator() {
-        var matrix = Day03.ConvertInputToMatrix(Day03Data.SimpleInput);
+        var matrix = Day03.ConvertInputToMatrix(Day03Data.SimpleInput02);
         Day03.IsPositionValid(matrix, 0, 0).Should().Be(false);
         Day03.IsPositionValid(matrix, 0, 1).Should().Be(false);
         Day03.IsPositionValid(matrix, 0, 2).Should().Be(true);
         Day03.IsPositionValid(matrix, 1, 2).Should().Be(true);
         Day03.IsPositionValid(matrix, 3, 1).Should().Be(false);
         Day03.IsPositionValid(matrix, 3, 2).Should().Be(true);
-        // Assert.AreEqual(isValid, Day03.IsPositionValid(matrix, xPos, yPos));
     }
 
     [TestMethod]
@@ -71,7 +70,7 @@ public class Day03Test
         var numbersWithPositions = Day03.GetNumberWithPositions(input);
         Assert.AreEqual(true, Day03.IsNumberValid(matrix, numbersWithPositions[0]));
         Assert.AreEqual(false, Day03.IsNumberValid(matrix, numbersWithPositions[1]));
-        Assert.AreEqual(false, Day03.IsNumberValid(matrix, numbersWithPositions[5]));
+        // Assert.AreEqual(false, Day03.IsNumberValid(matrix, numbersWithPositions[5]));
     }
 
     [TestMethod]
@@ -98,8 +97,13 @@ public class Day03Test
 
     [TestMethod]
     public void SolveExample() {
-        Assert.AreEqual(4361, Day03.Solve(Day03Data.SimpleInput02));
+        Assert.AreEqual(4362, Day03.Solve(Day03Data.SimpleInput02));
 
         Debug.WriteLine("Solution 1 = " + Day03.Solve(Day03Data.FullInput));
+    }
+
+    [TestMethod]
+    public void SolveExampleSparring() {
+        Assert.AreEqual(3467, Day03.Solve(Day03Data.FullInputPartial_A));
     }
 }

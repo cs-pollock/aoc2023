@@ -31,7 +31,7 @@ public class Day03
         var bottom = y + 1;
 
         int[] yPositions = {top, middle, bottom};
-        int[] xPositions = {x - 1, x + 1};
+        int[] xPositions = {x - 1, x, x + 1};
 
         foreach (int yPos in yPositions) {
             foreach (int xPos in xPositions) {
@@ -78,7 +78,7 @@ public class Day03
                     continue;
                 }
 
-                var foundNumber = GroupNumbers(line, y, x);
+                var foundNumber = GroupNumbersInLine(line, y, x);
                 foundNumbers.Add(foundNumber);
                 x = foundNumber.Positions.Last();
             }
@@ -87,7 +87,7 @@ public class Day03
         return foundNumbers;
     }
 
-    private static NumberWithPositions GroupNumbers(string line, int yPos, int xStartPosition) {
+    public static NumberWithPositions GroupNumbersInLine(string line, int yPos, int xStartPosition) {
         List<int> consecutivePositions = new() { xStartPosition };
         string number = "" + line[xStartPosition];
 
