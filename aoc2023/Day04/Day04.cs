@@ -32,7 +32,7 @@ public class Day04
     ) {
         int wins = 1;
 
-        var points = scratchcards[currentIndex].Points;
+        var points = scratchcards[currentIndex].Matches;
         
         for (int j = 1; j <= points; j++) {
             var nextCardIndex = currentIndex + j;
@@ -81,4 +81,4 @@ public class Day04
 }
 
 public record Scratchcard(int[] Winning, int[] Mine);
-public record SimpleCard(int Points);
+public record SimpleCard(int Matches);

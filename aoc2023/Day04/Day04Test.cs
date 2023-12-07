@@ -47,7 +47,7 @@ public class Day04Test
     public void Test_parser_2(string input,int expectedPoints) {
         var result = Day04.ParseIntoSimpleCards(input);
         result.Length.Should().Be(1);
-        result[0].Points.Should().Be(expectedPoints);
+        result[0].Matches.Should().Be(expectedPoints);
     }
 
     [TestMethod]
