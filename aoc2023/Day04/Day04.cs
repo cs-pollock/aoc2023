@@ -1,13 +1,51 @@
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using aoc2023.UtilsNS;
 
 namespace aoc2023.Day04;    
 public class Day04
 {
+
     public static int Solve_01(string input) {
         return Utils.SplitByLines(input)
-            .Select(cardString => ComputeCardResult(ParseScratchCard(cardString)))
+            .Select(cardString => ComputeCardPoints(ParseScratchCard(cardString)))
             .Aggregate(0, (total, cardResult) => total + cardResult);
+    }
+
+    public static int Solve_02(string input) {
+        SimpleCard[] simpleCards = ParseIntoSimpleCards(input);
+        int numberOfCards = simpleCards.Length;
+        int wins = 0;
+
+        for (int i = 0; i < numberOfCards; i++) {
+            var newWins = ComputeWinsForCard(simpleCards, i);
+            Debug.WriteLine($"Card {i + 1} wins {newWins}");
+            wins += newWins;
+        }
+
+        return wins;
+    }
+
+    private static int ComputeWinsForCard(
+        SimpleCard[] scratchcards,
+        int currentIndex
+    ) {
+        int wins = 1;
+
+        var points = scratchcards[currentIndex].Points;
+        
+        for (int j = 1; j <= points; j++) {
+            var nextCardIndex = currentIndex + j;
+            if (nextCardIndex < scratchcards.Length) {
+                wins += ComputeWinsForCard(scratchcards, nextCardIndex);
+            }
+        }
+
+        return wins;
+    }
+
+    public static SimpleCard[] ParseIntoSimpleCards(string input) {
+        return Utils.SplitByLines(input).Select(ParseScratchCard).Select(card => new SimpleCard(card.Id, ComputeCardMatches(card))).ToArray();
     }
 
     public static Scratchcard ParseScratchCard(string input) {
@@ -24,7 +62,7 @@ public class Day04
         }
     }
 
-    public static int ComputeCardResult(Scratchcard scratchcard) {
+    public static int ComputeCardPoints(Scratchcard scratchcard) {
         return scratchcard.Winning.Aggregate(0, (result, current) => {
             if (!scratchcard.Mine.Contains(current)) {
                 return result;
@@ -33,6 +71,15 @@ public class Day04
             return result == 0 ? 1 : result * 2;
         });
     }
+
+    public static int ComputeCardMatches(Scratchcard scratchcard) {
+        return scratchcard.Winning.Aggregate(0, (result, current) => 
+            scratchcard.Mine.Contains(current)
+                ? ++ result
+                : result
+        );
+    }
 }
 
 public record Scratchcard(int Id, int[] Winning, int[] Mine);
+public record SimpleCard(int Id, int Points);
