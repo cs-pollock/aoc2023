@@ -7,14 +7,12 @@ public class Day04Test
     [TestMethod]
     public void Test_parser() {
         var result = Day04.ParseScratchCard("Card  1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53");
-        result.Id.Should().Be(1);
-
         result.Winning.Should().Equal(41, 48, 83, 86, 17);
         result.Mine.Should().Equal(83, 86, 6, 31, 17, 9, 48, 53);
     }
 
     [TestMethod]
-    [DataRow("Card  1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53", 8 )]
+    [DataRow("Card  1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53", 8)]
     [DataRow("Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19", 2)]
     [DataRow("Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1", 2)]
     [DataRow("Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83", 1)]
@@ -40,7 +38,7 @@ public class Day04Test
     }
 
     [TestMethod]
-    [DataRow("Card  1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53", 5)]
+    [DataRow("Card  1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53", 4)]
     [DataRow("Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19", 2)]
     [DataRow("Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1", 2)]
     [DataRow("Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83", 1)]

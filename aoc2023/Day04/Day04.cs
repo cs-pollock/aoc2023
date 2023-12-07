@@ -45,17 +45,16 @@ public class Day04
     }
 
     public static SimpleCard[] ParseIntoSimpleCards(string input) {
-        return Utils.SplitByLines(input).Select(ParseScratchCard).Select(card => new SimpleCard(card.Id, ComputeCardMatches(card))).ToArray();
+        return Utils.SplitByLines(input).Select(ParseScratchCard).Select(card => new SimpleCard(ComputeCardMatches(card))).ToArray();
     }
 
     public static Scratchcard ParseScratchCard(string input) {
         var splitted = input.Split(':');
-        int id = int.Parse(Regex.Split(splitted[0].Trim(), @"\s+")[1]);
         string[] allNumbers = splitted[1].Split('|');
         int[] winningNumbers = GetNumbersFromString(allNumbers[0]);
         int[] myNumbers = GetNumbersFromString(allNumbers[1]);
 
-        return new(id, winningNumbers, myNumbers);
+        return new(winningNumbers, myNumbers);
 
         static int[] GetNumbersFromString(string numberString) {
             return numberString.Replace("  ", " ").Trim().Split(null).Select(numberString => int.Parse(numberString.Trim())).ToArray();
@@ -81,5 +80,5 @@ public class Day04
     }
 }
 
-public record Scratchcard(int Id, int[] Winning, int[] Mine);
-public record SimpleCard(int Id, int Points);
+public record Scratchcard(int[] Winning, int[] Mine);
+public record SimpleCard(int Points);
