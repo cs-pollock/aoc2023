@@ -12,34 +12,34 @@ public class Day04
             .Aggregate(0, (total, cardResult) => total + cardResult);
     }
 
+    // public static int Solve_02(string input) {
+    //     SimpleCard[] simpleCards = ParseIntoSimpleCards(input);
+    //     int numberOfCards = simpleCards.Length;
+    //     int wins = 0;
+
+    //     for (int i = 0; i < numberOfCards; i++) {
+    //         var newWins = ComputeWinsForCard(simpleCards, i);
+    //         Debug.WriteLine($"Card {i + 1} wins {newWins}");
+    //         wins += newWins;
+    //     }
+
+    //     return wins;
+    // }
+
     public static int Solve_02(string input) {
-        SimpleCard[] simpleCards = ParseIntoSimpleCards(input);
-        int numberOfCards = simpleCards.Length;
-        int wins = 0;
+        string[] cardStrings = Utils.SplitByLines(input);
+        int[] results = new int[cardStrings.Length];
 
-        for (int i = 0; i < numberOfCards; i++) {
-            var newWins = ComputeWinsForCard(simpleCards, i);
-            Debug.WriteLine($"Card {i + 1} wins {newWins}");
-            wins += newWins;
-        }
-
-        return wins;
-    }
-
-    public static int Solve_02_02(string input) {
-        SimpleCard[] simpleCards = ParseIntoSimpleCards(input);
-        int numberOfCards = simpleCards.Length;
-        int[] results = new int[simpleCards.Length];
-
-        for (int i = simpleCards.Length - 1; i >= 0; i--) {
-            var result2 = 1;
-            for (int j = 1; j <= simpleCards[i].Matches; j ++) {
+        for (int i = cardStrings.Length - 1; i >= 0; i--) {
+            var localResult = 1;
+            var cardMatches = ComputeCardMatches(ParseScratchCard(cardStrings[i]));
+            for (int j = 1; j <= cardMatches; j++) {
                 var newIndex = i + j;
-                if (newIndex <= results.Length) {
-                    result2 += results[newIndex];
+                if (newIndex < results.Length) {
+                    localResult += results[newIndex];
                 }
             }
-            results[i] = result2;
+            results[i] = localResult;
         }
 
         return results.Aggregate(0, (total, current) => total + current);
