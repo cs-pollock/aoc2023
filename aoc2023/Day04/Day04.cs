@@ -26,6 +26,25 @@ public class Day04
         return wins;
     }
 
+    public static int Solve_02_02(string input) {
+        SimpleCard[] simpleCards = ParseIntoSimpleCards(input);
+        int numberOfCards = simpleCards.Length;
+        int[] results = new int[simpleCards.Length];
+
+        for (int i = simpleCards.Length - 1; i >= 0; i--) {
+            var result2 = 1;
+            for (int j = 1; j <= simpleCards[i].Matches; j ++) {
+                var newIndex = i + j;
+                if (newIndex <= results.Length) {
+                    result2 += results[newIndex];
+                }
+            }
+            results[i] = result2;
+        }
+
+        return results.Aggregate(0, (total, current) => total + current);
+    }
+
     private static int ComputeWinsForCard(
         SimpleCard[] scratchcards,
         int currentIndex
