@@ -42,7 +42,7 @@ public class Day04
             results[i] = localResult;
         }
 
-        return results.Aggregate(0, (total, current) => total + current);
+        return results.Sum();
     }
 
     private static int ComputeWinsForCard(
